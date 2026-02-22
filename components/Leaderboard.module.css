@@ -1,0 +1,144 @@
+.container {
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.statBox {
+  background: hsl(var(--bg-dark));
+  border: 1px solid hsl(var(--border));
+  padding: 1.5rem;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: hsl(var(--text-muted));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 800;
+  color: hsl(var(--accent-primary));
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--text-muted));
+  font-weight: 600;
+}
+
+.table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.code code {
+  background: hsl(var(--accent-primary) / 0.15);
+  color: hsl(var(--accent-primary));
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.url {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: hsl(var(--text-muted));
+}
+
+.clicks {
+  font-weight: 700;
+  color: hsl(var(--text-main));
+}
+
+.codeContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.shortCodeLink {
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.shortCodeLink:hover {
+  opacity: 0.8;
+}
+
+.copyButton {
+  background: transparent;
+  border: none;
+  color: hsl(var(--text-muted));
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.copyButton:hover {
+  background: hsl(var(--accent-primary) / 0.1);
+  color: hsl(var(--accent-primary));
+}
+
+.copiedText {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: hsl(var(--accent-primary));
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .statsOverview {
+    grid-template-columns: 1fr;
+  }
+}
