@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { setAuthSession } from '@/lib/auth';
 import styles from './login.module.css';
 
-export default function LoginPage() {
+function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -42,49 +42,57 @@ export default function LoginPage() {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={`glass ${styles.loginCard} animate-fade-in`}>
-                <div className={styles.header}>
-                    <h1 className={`${styles.title} text-gradient`}>Admin Login</h1>
-                    <p className={styles.subtitle}>Enter your credentials to access the dashboard.</p>
+        <div className={`glass ${styles.loginCard} animate-fade-in`}>
+            <div className={styles.header}>
+                <h1 className={`${styles.title} text-gradient`}>Admin Login</h1>
+                <p className={styles.subtitle}>Enter your credentials to access the dashboard.</p>
+            </div>
+
+            {error && <div className={styles.error}>{error}</div>}
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.field}>
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                        placeholder="username"
+                        autoComplete="username"
+                    />
                 </div>
 
-                {error && <div className={styles.error}>{error}</div>}
+                <div className={styles.field}>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        placeholder="••••••••"
+                        autoComplete="current-password"
+                    />
+                </div>
 
-                <form className={styles.form} onSubmit={handleSubmit}>
-                    <div className={styles.field}>
-                        <label>Username</label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            placeholder="username"
-                            autoComplete="username"
-                        />
-                    </div>
+                <button
+                    type="submit"
+                    className={`btn-primary ${styles.submitBtn}`}
+                    disabled={loading}
+                >
+                    {loading ? 'Logging in...' : 'Sign In'}
+                </button>
+            </form>
+        </div>
+    );
+}
 
-                    <div className={styles.field}>
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            placeholder="••••••••"
-                            autoComplete="current-password"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className={`btn-primary ${styles.submitBtn}`}
-                        disabled={loading}
-                    >
-                        {loading ? 'Logging in...' : 'Sign In'}
-                    </button>
-                </form>
-            </div>
+export default function LoginPage() {
+    return (
+        <div className={styles.container}>
+            <Suspense fallback={<div className={styles.loading}>Loading...</div>}>
+                <LoginForm />
+            </Suspense>
         </div>
     );
 }
