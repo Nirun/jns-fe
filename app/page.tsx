@@ -3,7 +3,7 @@ import { Product } from '@/types';
 import styles from './page.module.css';
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch('http://localhost:3000/api/products', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/products`, {
     cache: 'no-store',
     headers: {
       'X-API-KEY': 'e8b40492-b870-498f-a1f3-969a42222637',
@@ -21,6 +21,7 @@ async function getProducts(): Promise<Product[]> {
 
 export default async function Home() {
   const products = await getProducts();
+  const copyright = process.env.NEXT_PUBLIC_COPYRIGHT;
 
   return (
     <div className={styles.container}>
@@ -47,7 +48,7 @@ export default async function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <p>© 2024 Antigravity Affiliate Platform</p>
+        <p>{copyright}</p>
       </footer>
     </div>
   );

@@ -40,6 +40,11 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <div className={styles.offersList}>
                     {product.offers.map((offer) => {
                         const isBest = bestOffer && offer.id === bestOffer.id;
+                        const foundLink = product.links?.find(l => l.targetUrl === offer.productUrl);
+                        const dealUrl = foundLink
+                            ? `${process.env.NEXT_PUBLIC_API_ENDPOINT}/go/${foundLink.shortCode}`
+                            : offer.productUrl;
+
                         return (
                             <div key={offer.id} className={`${styles.offerItem} ${isBest ? styles.bestOffer : ''}`}>
                                 <div className={styles.offerMeta}>
@@ -51,11 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                                     {isBest && <span className={styles.bestPriceBadge}>BEST PRICE</span>}
                                 </div>
                                 <a
-                                    href={
-                                        product.links?.find(l => l.targetUrl === offer.productUrl)
-                                            ? `http://localhost:3000/go/${product.links.find(l => l.targetUrl === offer.productUrl)?.shortCode}`
-                                            : offer.productUrl
-                                    }
+                                    href={dealUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={isBest ? 'btn-primary' : styles.btnSecondary}

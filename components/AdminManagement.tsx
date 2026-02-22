@@ -32,9 +32,9 @@ export default function AdminManagement({ initialProducts, initialCampaigns, ini
         if (!confirm(`Are you sure you want to delete this ${type.slice(0, -1)}?`)) return;
 
         let url = '';
-        if (type === 'products') url = `http://localhost:3000/api/products/${id}`;
-        if (type === 'campaigns') url = `http://localhost:3000/api/campaigns/${id}`;
-        if (type === 'links') url = `http://localhost:3000/api/links/${id}`;
+        if (type === 'products') url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/products/${id}`;
+        if (type === 'campaigns') url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/campaigns/${id}`;
+        if (type === 'links') url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/links/${id}`;
 
         const apiKey = getAdminApiKey();
 
@@ -74,7 +74,7 @@ export default function AdminManagement({ initialProducts, initialCampaigns, ini
         const { type, mode, data } = modalConfig;
         const isEdit = mode === 'edit';
 
-        let url = `http://localhost:3000/api/${type}`;
+        let url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/${type}`;
         if (isEdit) url += `/${data.id}`;
 
         let body: any = {};

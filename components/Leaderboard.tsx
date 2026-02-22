@@ -12,7 +12,7 @@ export default function Leaderboard({ stats }: LeaderboardProps) {
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
     const handleCopy = (shortCode: string) => {
-        const url = `http://localhost:3000/go/${shortCode}`;
+        const url = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/go/${shortCode}`;
         navigator.clipboard.writeText(url);
         setCopiedCode(shortCode);
         setTimeout(() => setCopiedCode(null), 2000);
@@ -52,7 +52,7 @@ export default function Leaderboard({ stats }: LeaderboardProps) {
                                 <td className={styles.code}>
                                     <div className={styles.codeContainer}>
                                         <a
-                                            href={`http://localhost:3000/go/${link.shortCode}`}
+                                            href={`${process.env.NEXT_PUBLIC_API_ENDPOINT}/go/${link.shortCode}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className={styles.shortCodeLink}

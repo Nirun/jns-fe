@@ -8,7 +8,7 @@ import styles from './admin.module.css';
 import LogoutButton from '@/components/LogoutButton';
 
 async function getDashboardStats(apiKey: string): Promise<DashboardStats> {
-    const res = await fetch('http://localhost:3000/api/dashboard', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/dashboard`, {
         cache: 'no-store',
         headers: { 'X-API-KEY': apiKey },
     });
@@ -18,23 +18,24 @@ async function getDashboardStats(apiKey: string): Promise<DashboardStats> {
 }
 
 async function getAllProducts(apiKey: string) {
-    const res = await fetch('http://localhost:3000/api/products', { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/products`, { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
     return res.ok ? res.json() : [];
 }
 
 async function getAllCampaigns(apiKey: string) {
-    const res = await fetch('http://localhost:3000/api/campaigns', { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/campaigns`, { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
     return res.ok ? res.json() : [];
 }
 
 async function getAllLinks(apiKey: string) {
-    const res = await fetch('http://localhost:3000/api/links', { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/links`, { cache: 'no-store', headers: { 'X-API-KEY': apiKey } });
     return res.ok ? res.json() : [];
 }
 
 export default async function AdminDashboard() {
     const cookieStore = await cookies();
     const apiKey = cookieStore.get('admin_api_key')?.value;
+    const copyright = process.env.NEXT_PUBLIC_COPYRIGHT;
 
     if (!apiKey) {
         redirect('/login');
@@ -83,7 +84,7 @@ export default async function AdminDashboard() {
             </main>
 
             <footer className={styles.footer}>
-                <p>© 2024 Antigravity Affiliate Platform</p>
+                <p>{copyright}</p>
             </footer>
         </div>
     );
